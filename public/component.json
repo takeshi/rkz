@@ -1,0 +1,14 @@
+{
+  "name": "rkz",
+  "version": "0.0.1",
+  "dependencies": {
+    "flight": "~1.0.3",
+    "jquery": "~1.9.1",
+    "es5-shim": "~2.0.0"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ]
+}
