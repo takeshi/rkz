@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_filter :authenticate_user!, :except =>[:index,:show]
   # GET /posts
   # GET /posts.json
   def index
@@ -35,13 +36,20 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
+
+    unless @post.owner.id == current_user.id
+      respond_to do |format|
+        format.html { redirect_to @post, notice: '更新権限がありません' }
+        format.json { render json: {:messages=>["unauthenticated"]}, status: :unauthenticated }
+      end
+    end
   end
 
   # POST /posts
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-
+    @post.owner = current_user
     respond_to do |format|
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
@@ -59,8 +67,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+      if @post.owner.id != current_user.id
+        format.html { redirect_to @post, notice: '更新権限がありません' }
+        format.json { render json: {:messages=>["unauthenticated"]}, status: :unauthenticated }
+      elsif @post.update_attributes(params[:post])
+        format.html { redirect_to @post, notice: '更新しました' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -73,11 +84,18 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post = Post.find(params[:id])
-    @post.destroy
 
-    respond_to do |format|
-      format.html { redirect_to posts_url }
-      format.json { head :no_content }
+    unless @post.owner.id == current_user.id
+      respond_to do |format|
+        format.html { redirect_to @post, notice: '更新権限がありません' }
+        format.json { head :no_content }
+      end
+    else 
+      @post.destroy
+      respond_to do |format|
+        format.html { redirect_to posts_url }
+        format.json { head :no_content }
+      end
     end
   end
 end

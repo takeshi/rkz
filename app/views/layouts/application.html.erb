@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%= csrf_meta_tags %>
+
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +18,7 @@
       }
     </style>
     <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <%= stylesheet_link_tag    "application", :media => "all" %>
 
   </head>
 
@@ -33,12 +36,16 @@
           <div class="nav-collapse collapse">
             <div class="navbar-form pull-right">
               <% unless user_signed_in? %>
-                <%= link_to("Sign in",new_user_session_path,:class=>"btn")%>
-              <% else %>
+                <ul class="nav">
+                 <li> <%= link_to("Sign in",new_user_session_path)%>
+                </ul>
+              <% else %>              
               <ul class="nav">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.email%> <b class="caret"></b></a>
                   <ul class="dropdown-menu">
+                    <li><%= link_to('New Post',new_post_path,:method=>:get) %></li>
+
                     <li><%= link_to('Sign out',destroy_user_session_path,:method=>:delete) %></li>
                   </ul>
                 </li>
@@ -56,7 +63,7 @@
 
       <hr>
 
-      <footer>
+      <footer class="pull-right">
         <p>&copy; RAKUZA 2013</p>
       </footer>
 

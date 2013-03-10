@@ -2,7 +2,6 @@ Rkz::Application.routes.draw do
   root  :to=>"posts#index"
   resources :posts
 
-
   devise_for :users
 
   # The priority is based upon order of creation:

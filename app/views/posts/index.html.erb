@@ -1,5 +1,3 @@
-<h1>Listing posts</h1>
-
 <table>
   <tr>
     <th>Title</th>
@@ -17,11 +15,9 @@
     <td><%= post.owner_id %></td>
     <td><%= link_to 'Show', post %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: '削除してよろしいですか?' } %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Post', new_post_path %>

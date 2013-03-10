@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
+  <div class="actions" style="margin-bottom:10px" >
+    <%= f.submit :class=>"btn",:value=>"投稿"%>
+  </div>
+
   <div class="field">
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%= f.text_field :title ,:style=>"width:100%" ,:placeholder=>"Title" %>
   </div>
   <div class="field">
-    <%= f.label :contents %><br />
-    <%= f.text_field :contents %>
+    <%= f.text_area :contents, :style=>"width:100%" ,:placeholder=>"Contents"%>
   </div>
-  <div class="field">
-    <%= f.label :owner_id %><br />
-    <%= f.number_field :owner_id %>
-  </div>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :class=>"btn",:value=>"投稿"%>
   </div>
+
 <% end %>
