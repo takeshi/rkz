@@ -5,21 +5,22 @@
 </div>
 <% end %>
 
+<div class="row">
+  <div class="span12">
+    <div class="row">
+      <div class="span8">
+        <h4>
+          <%= @post.title %>
+        </h4>
+      </div>
+      <div class="span4">
+      </div>
+    </div>
+    <%=raw @post.markdown_contents %>
 
-<p>
-  <b>Title:</b>
-  <%= @post.title %>
-</p>
+  </div>
+</div>
 
-<p>
-  <b>Contents:</b>
-  <%= @post.contents %>
-</p>
-
-<p>
-  <b>Owner:</b>
-  <%= @post.owner.email %>
-</p>
 
 <% if user_signed_in?  %>
 <div class="btn-group" data-toggle="buttons-checkbox">
